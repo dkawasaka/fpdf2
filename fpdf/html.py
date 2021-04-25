@@ -462,7 +462,17 @@ class HTML2FPDF(HTMLParser):
         if face:
             self.font_face = face
         if not self.font_face:
-            self.font_face = self.pdf.current_font.get("fontkey")
+            face = self.pdf.current_font.get("fontkey")
+            if str(face[-1:])=='B':
+                print('equal', 'B')
+                self.font_face = face[:-1]
+            elif str(face[-1:])=='I':
+                print('equal', 'I')
+                self.font_face = face[:-1]
+            else:
+                print('face ', str(face[-1:])=='B', f'{face[-1:]}'=='B')
+                self.font_face = face
+            # self.font_face = self.pdf.current_font.get("fontkey")
         if size:
             self.font_size = size
             self.h = size / 72 * 25.4
